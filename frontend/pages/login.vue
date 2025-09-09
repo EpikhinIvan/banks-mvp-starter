@@ -2,14 +2,26 @@
 const username = ref('')
 const password = ref('')
 const { $get, setToken } = useApi()
+
 async function login() {
   try {
     const data:any = await $get('/auth/token/', {
       method: 'POST',
       body: { username: username.value, password: password.value }
     })
+
     setToken(data.access)
-    await navigateTo('/banks')
+
+    if (process.client) {
+      localStorage.setItem('is_staff', data.is_staff ? '1' : '0')
+      localStorage.setItem('username', data.username)
+    }
+
+    if (data.is_staff) {
+      await navigateTo('/admin/banks')
+    } else {
+      await navigateTo('/banks')
+    }
   } catch (e:any) {
     alert('Ошибка входа')
   }

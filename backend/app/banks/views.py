@@ -9,6 +9,7 @@ from .serializers import BankListSerializer, BankDetailSerializer
 from .filters import BankFilter
 from .permissions import IsAdminOrReadOnly
 from .export import export_banks_xlsx
+from django.http import HttpResponse
 
 class BankViewSet(viewsets.ModelViewSet):
     queryset = Bank.objects.all().order_by("id")
@@ -28,7 +29,9 @@ class BankViewSet(viewsets.ModelViewSet):
     @action(detail=False, methods=["get"], url_path="export")
     def export(self, request):
         wb_bytes, filename = export_banks_xlsx(self.filter_queryset(self.get_queryset()))
-        response = Response(wb_bytes, status=status.HTTP_200_OK)
-        response["Content-Type"] = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+        response = HttpResponse(
+            wb_bytes,
+            content_type="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+        )
         response["Content-Disposition"] = f'attachment; filename="{filename}"'
-        return response
+        return response 

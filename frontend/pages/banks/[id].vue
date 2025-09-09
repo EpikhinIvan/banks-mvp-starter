@@ -8,10 +8,10 @@ onMounted(async () => bank.value = await $get(`/banks/${route.params.id}/`))
 <template>
   <div v-if="bank" class="bank-detail">
     <h1>{{ bank.name }}</h1>
-    <p><b>BIC:</b> {{ bank.bic }}</p>
-    <p><b>Country:</b> {{ bank.country }}</p>
+    <p><b>БИК:</b> {{ bank.bic }}</p>
+    <p><b>Страна:</b> {{ bank.country }}</p>
     <p v-if="bank.swift"><b>SWIFT:</b> {{ bank.swift }}</p>
-    <p v-if="bank.license_number"><b>License:</b> {{ bank.license_number }}</p>
+    <p v-if="bank.license_number"><b>Лицензия:</b> {{ bank.license_number }}</p>
     <p v-if="bank.site"><a :href="bank.site" target="_blank">Website</a></p>
   </div>
 </template>
