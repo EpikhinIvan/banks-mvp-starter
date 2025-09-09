@@ -1,0 +1,28 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.sqlite3
+*.db
+*.log
+
+# Django
+/media/
+staticfiles/
+
+# Node
+node_modules/
+.npm/
+dist/
+.nuxt/
+.output/
+
+# Docker
+.docker/
+docker-data/
+dbdata/
+
+# Env
+.env
+.env.local
